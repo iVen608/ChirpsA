@@ -1,16 +1,25 @@
 package com.example.chirps;
 
+import android.app.Activity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class ExpandedController {
     String _name;
     String _description;
     String _date;
     String _time;
-    public ExpandedController(String name, String description, String date, String time){
-        this._name = name;
-        this._description = description;
-        this._date = date;
-        this._time = time;
+    Activity _act;
+    public ExpandedController(Activity activity, int index){
+        ArrayList<HashMap<String, String>> reminders = MultiController.reminders;
+        this._name = reminders.get(index).get("name");
+        this._description = reminders.get(index).get("description");
+        this._date = reminders.get(index).get("date");
+        this._time = reminders.get(index).get("time");
+        this._act = activity;
     }
+
     public String get_name() {
         return _name;
     }

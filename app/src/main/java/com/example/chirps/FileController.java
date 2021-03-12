@@ -24,6 +24,7 @@ public class FileController {
         b.put("date", "01.2020");
         b.put("time", "01:08:20");
         reminders.add(a);
+        reminders.add(b);
         return reminders;
     }
 }

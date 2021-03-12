@@ -6,4 +6,7 @@ public class MainController {
     public void requestFiles(){
         mc.gatherReminders();
     }
+    public void viewReminder(int index){
+        mc.showExpandedReminder(index);
+    }
 }

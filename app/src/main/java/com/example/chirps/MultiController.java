@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class MultiController {
     NewRController nrc = new NewRController();
-    ArrayList<HashMap<String, String>> reminders;
+    static ArrayList<HashMap<String, String>> reminders;
     public void gatherReminders(){
         FileController files = new FileController();
         reminders = files.getReminders();
@@ -16,6 +16,11 @@ public class MultiController {
 
     }
 
-    public void showExpandedReminder(){
+    public void showExpandedReminder(int Index){
+
+    }
+
+    public void updateReminder(int Index, String name, String description, String date, String time){
+
     }
 }
