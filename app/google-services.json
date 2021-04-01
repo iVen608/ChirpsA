@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "611511557630",
+    "project_id": "chir-cb9e3",
+    "storage_bucket": "chir-cb9e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611511557630:android:de66ae9f860f63465274af",
+        "android_client_info": {
+          "package_name": "com.example.chirps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "611511557630-6je8t8la80d1i2tqjl6hhj7i9u821292.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9etAS6kX7Dwi3rDnHGnhwc1pluXnIpvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "611511557630-6je8t8la80d1i2tqjl6hhj7i9u821292.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
