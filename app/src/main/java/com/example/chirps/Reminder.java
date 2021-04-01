@@ -1,12 +1,12 @@
 package com.example.chirps;
 
 public class Reminder {
-    String title, date, description, time;
+    String title, date, desc, time;
 
     public Reminder(String title, String date, String description, String time) {
         this.title = title;
         this.date = date;
-        this.description = description;
+        this.desc = description;
         this.time = time;
     }
 
@@ -27,11 +27,11 @@ public class Reminder {
     }
 
     public String getDescription() {
-        return description;
+        return desc;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.desc = description;
     }
 
     public String getTime() {
