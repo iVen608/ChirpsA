@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     Context context;
     ArrayList<Reminder> reminder_list;
+    public View itemV;
 
     public Adapter(Context c, ArrayList<Reminder> p){
         context = c;
@@ -34,7 +35,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         holder.title.setText(reminder_list.get(position).getTitle());
         holder.timeT.setText(reminder_list.get(position).getTime());
         holder.dateT.setText(reminder_list.get(position).getDate());
-        MyViewHolder.itemView.setOnClickListener(new View.OnClickListener(){
+        itemV.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent i = new Intent(context, ExpandedActvity.class);
@@ -54,10 +55,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        public static View itemView;
+
         TextView title, timeT, dateT;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemV = itemView;
             title = (TextView) itemView.findViewById(R.id.title);
             timeT = (TextView) itemView.findViewById(R.id.time);
             dateT = (TextView) itemView.findViewById(R.id.date);
