@@ -1,6 +1,7 @@
 package com.example.chirps;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,18 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         holder.title.setText(reminder_list.get(position).getTitle());
         holder.timeT.setText(reminder_list.get(position).getTime());
         holder.dateT.setText(reminder_list.get(position).getDate());
+        MyViewHolder.itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(context, ExpandedActvity.class);
+                i.putExtra("index", position);
+                i.putExtra("title", reminder_list.get(position).getTitle());
+                i.putExtra("desc", reminder_list.get(position).getDescription());
+                i.putExtra("time", reminder_list.get(position).getTime());
+                i.putExtra("date", reminder_list.get(position).getDate());
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -41,6 +54,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
+        public static View itemView;
         TextView title, timeT, dateT;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
