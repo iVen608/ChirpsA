@@ -3,7 +3,7 @@ package com.example.chirps;
 public class Reminder {
     String title, date, desc, time;
 
-    public Reminder(String title, String date, String description, String time) {
+    public Reminder(String title, String description, String time, String date) {
         this.title = title;
         this.date = date;
         this.desc = description;
