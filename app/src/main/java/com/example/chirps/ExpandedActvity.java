@@ -24,10 +24,12 @@ import java.util.Date;
 
 public class ExpandedActvity extends AppCompatActivity {
     int hours, min;
+    ExpandedController ec;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expanded_actvity);
+        ec = new ExpandedController(this);
         TextView title = findViewById(R.id.title_text);
         TextView desc = findViewById(R.id.desc_text);
         TextView timeT = findViewById(R.id.time_text);
@@ -43,6 +45,7 @@ public class ExpandedActvity extends AppCompatActivity {
     }
 
     public void save(View view){
+
         int index = getIntent().getIntExtra("index", 0);
         TextView titleT = findViewById(R.id.title_text);
         TextView timeT = findViewById(R.id.time_text);
@@ -52,17 +55,21 @@ public class ExpandedActvity extends AppCompatActivity {
         String desc = descT.getText().toString();
         String time = timeT.getText().toString();
         String date = dateT.getText().toString();
-        MultiController.saveInfo(index, title, desc, time, date);
-        SharedPreferences sp = getSharedPreferences("Reminders", Context.MODE_PRIVATE);
-        SharedPreferences.Editor ed = sp.edit();
-        Gson g = new Gson();
-        String json = g.toJson(MultiController.reminders);
-        ed.putString("key", json).apply();
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
+        Boolean result = ec.validateValues(title, desc, time, date);
+        if(result == true) {
+            MultiController.saveInfo(index, title, desc, time, date);
+            SharedPreferences sp = getSharedPreferences("Reminders", Context.MODE_PRIVATE);
+            SharedPreferences.Editor ed = sp.edit();
+            Gson g = new Gson();
+            String json = g.toJson(MultiController.reminders);
+            ed.putString("key", json).apply();
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+        }
     }
 
     public void delete(View view){
+        ec.deleteMessage();
         int index = getIntent().getIntExtra("index", 0);
         MultiController.deleteInfo(index);
         SharedPreferences sp = getSharedPreferences("Reminders", Context.MODE_PRIVATE);
