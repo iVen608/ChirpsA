@@ -1,18 +1,22 @@
 package com.example.chirps;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
@@ -44,7 +48,8 @@ public class ExpandedActvity extends AppCompatActivity {
         this.finish();
     }
 
-    public void save(View view){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void save(View view) throws ParseException {
 
         int index = getIntent().getIntExtra("index", 0);
         TextView titleT = findViewById(R.id.title_text);
@@ -57,14 +62,16 @@ public class ExpandedActvity extends AppCompatActivity {
         String date = dateT.getText().toString();
         Boolean result = ec.validateValues(title, desc, time, date);
         if(result == true) {
+            notificationChanel();
             MultiController.saveInfo(index, title, desc, time, date);
             SharedPreferences sp = getSharedPreferences("Reminders", Context.MODE_PRIVATE);
             SharedPreferences.Editor ed = sp.edit();
             Gson g = new Gson();
             String json = g.toJson(MultiController.reminders);
             ed.putString("key", json).apply();
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
+            AlarmHelper ah = new AlarmHelper(ExpandedActvity.this);
+            ah.setAlarm(date, time);
+            this.finish();
         }
     }
 
@@ -127,5 +134,17 @@ public class ExpandedActvity extends AppCompatActivity {
                 }, year, month, day);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+    }
+
+    public void notificationChanel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "blank";
+            String desc = "Apples";
+            NotificationChannel nc = new NotificationChannel("reminders", name, NotificationManager.IMPORTANCE_DEFAULT);
+            nc.setDescription(desc);
+
+            NotificationManager nm = getSystemService(NotificationManager.class);
+            nm.createNotificationChannel(nc);
+        }
     }
 }
