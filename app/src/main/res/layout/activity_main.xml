@@ -27,10 +27,13 @@
 
         <Button
             android:id="@+id/button4"
-            android:layout_width="match_parent"
+            android:layout_width="71dp"
             android:layout_height="50dp"
+            android:background="#00FFFFFF"
             android:onClick="newReminder"
-            android:text="+" />
+            android:text="+"
+            android:textColor="#0E0E0E"
+            android:textSize="24sp" />
 
     </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.example.chirps;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -17,6 +19,7 @@ import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class ExpandedActvity extends AppCompatActivity {
@@ -28,9 +31,11 @@ public class ExpandedActvity extends AppCompatActivity {
         TextView title = findViewById(R.id.title_text);
         TextView desc = findViewById(R.id.desc_text);
         TextView timeT = findViewById(R.id.time_text);
+        TextView dateT = findViewById(R.id.date_text);
         timeT.setText(getIntent().getStringExtra("time"));
         title.setText(getIntent().getStringExtra("title"));
         desc.setText(getIntent().getStringExtra("desc"));
+        dateT.setText(getIntent().getStringExtra("date"));
     }
 
     public void goBack(View view){
@@ -41,10 +46,12 @@ public class ExpandedActvity extends AppCompatActivity {
         int index = getIntent().getIntExtra("index", 0);
         TextView titleT = findViewById(R.id.title_text);
         TextView timeT = findViewById(R.id.time_text);
+        TextView descT = findViewById(R.id.desc_text);
+        TextView dateT = findViewById(R.id.date_text);
         String title = titleT.getText().toString();
-        String desc = "";
+        String desc = descT.getText().toString();
         String time = timeT.getText().toString();
-        String date = getIntent().getStringExtra("date");
+        String date = dateT.getText().toString();
         MultiController.saveInfo(index, title, desc, time, date);
         SharedPreferences sp = getSharedPreferences("Reminders", Context.MODE_PRIVATE);
         SharedPreferences.Editor ed = sp.edit();
@@ -94,5 +101,24 @@ public class ExpandedActvity extends AppCompatActivity {
         tpd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         tpd.updateTime(hours, min);
         tpd.show();
+    }
+
+    public void selectDate(View view){
+        TextView dateT = findViewById(R.id.date_text);
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog dialog = new DatePickerDialog(ExpandedActvity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        dateT.setText(month+"/"+dayOfMonth+"/"+year);
+                    }
+                }, year, month, day);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
     }
 }
