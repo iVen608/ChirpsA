@@ -27,11 +27,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //Informs the MyViewHolder which item is the template and where to place the item in.
         return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_reminder, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        //Called when creating each elements and sets the Reminder layout information to the correct info.
         holder.title.setText(reminder_list.get(position).getTitle());
         holder.timeT.setText(reminder_list.get(position).getTime());
         holder.dateT.setText(reminder_list.get(position).getDate());
@@ -58,6 +60,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
         TextView title, timeT, dateT;
         public MyViewHolder(@NonNull View itemView) {
+            //Sets the neccessary elements to the class variables to be used in onBindViewHolder.
             super(itemView);
             itemV = itemView;
             title = (TextView) itemView.findViewById(R.id.title);

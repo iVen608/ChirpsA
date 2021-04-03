@@ -10,6 +10,7 @@ public class ExpandedController {
         this.c = c;
     }
     public Boolean validateValues(String title, String desc, String time, String date){
+        //Validates if the entries are empty.
         Boolean value = false;
         if (title.length() == 0  || time.length() == 0 || date.length() == 0){
             Toast.makeText(c, "Your reminder has some blank fields.", Toast.LENGTH_SHORT).show();
@@ -21,6 +22,7 @@ public class ExpandedController {
     }
 
     public void deleteMessage(){
+        //Creates a toast to inform user their reminder was deleted.
         Toast.makeText(c, "Your reminder has been deleted.", Toast.LENGTH_SHORT).show();
     }
 

@@ -31,6 +31,10 @@ public class ExpandedActvity extends AppCompatActivity {
     ExpandedController ec;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /*
+        This expanded activity is used for both new and existing by passing an empty string for new activities,
+        or the index information from the entry to populate the fields.
+         */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expanded_actvity);
         ec = new ExpandedController(this);
@@ -50,7 +54,7 @@ public class ExpandedActvity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void save(View view) throws ParseException {
-
+        // This function add only save the information if it's validated from the ExpandedController.
         int index = getIntent().getIntExtra("index", 0);
         TextView titleT = findViewById(R.id.title_text);
         TextView timeT = findViewById(R.id.time_text);
@@ -76,6 +80,10 @@ public class ExpandedActvity extends AppCompatActivity {
     }
 
     public void delete(View view){
+        /*
+        The function calls Expanded Controller to create a delete toast as well as deleting the information
+        stored in the MultiController. After which, it begins the Main Activity.
+         */
         ec.deleteMessage();
         int index = getIntent().getIntExtra("index", 0);
         MultiController.deleteInfo(index);
@@ -89,6 +97,11 @@ public class ExpandedActvity extends AppCompatActivity {
     }
 
     public void selectTime(View view){
+        /*
+        This function is called when the time button is pressed and creates the TimePicker icon for the
+        user to select the time.
+        Code adapted from: https://www.youtube.com/watch?v=o-HVE_VxyjQ;
+         */
         TextView timeT = findViewById(R.id.time_text);
         TimePickerDialog tpd = new TimePickerDialog(
                 ExpandedActvity.this,
@@ -118,6 +131,11 @@ public class ExpandedActvity extends AppCompatActivity {
     }
 
     public void selectDate(View view){
+        /*
+        This function is called when the date button is pressed and creates the DatePicker icon for the
+        user to select the time.
+        Code adapted from: https://www.youtube.com/watch?v=o-HVE_VxyjQ but reversed for DatePicker instead.
+         */
         TextView dateT = findViewById(R.id.date_text);
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -137,9 +155,13 @@ public class ExpandedActvity extends AppCompatActivity {
     }
 
     public void notificationChanel(){
+        /*
+        This function validates the SDK of the android device to ensure notification channel can be used. Then,
+        it initiates the notification manager to create a notification which can be called when the button is saved.
+         */
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "blank";
-            String desc = "Apples";
+            CharSequence name = "Reminder";
+            String desc = "Chirps";
             NotificationChannel nc = new NotificationChannel("reminders", name, NotificationManager.IMPORTANCE_DEFAULT);
             nc.setDescription(desc);
 

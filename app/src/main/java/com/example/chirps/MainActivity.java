@@ -26,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /*
+        Initializes the key variables and gets the saved information needed for the Recycler View and
+        sets the adapter to the reminders Array.
+         */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sp = getSharedPreferences("Reminders", Context.MODE_PRIVATE);
@@ -39,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newReminder(View view){
+        /*
+        When a new reminder is pressed, passing "" allows the class to be similar as to when information is passed.
+        The index size will let the MultiController know which index to put the information in if it needs to delete it.
+         */
         Intent i = new Intent(this, ExpandedActvity.class);
         i.putExtra("index", reminders.size());
         i.putExtra("title", "");
@@ -51,11 +59,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void returnSharedKey(){
+        //Sets the reminders in this class to the mainController expanded list.
         ArrayList<Reminder> s = mainController.expandStringList(sp.getString(key, "def"));
         reminders = s;
     }
 
     public void save(){
+        //Saves the information neccessary.
         reminders = MultiController.reminders;
         SharedPreferences.Editor editor = sp.edit();
         Gson g = new Gson();

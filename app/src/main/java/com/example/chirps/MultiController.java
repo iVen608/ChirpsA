@@ -8,6 +8,8 @@ public class MultiController {
     static ArrayList<Reminder> reminders;
 
     public static void saveInfo(int index, String title, String desc, String time, String date){
+        //The saveInfo checks to see if the entry is new or existing, if it's new create a new Reminder with the information.
+        //Otherwise, update the existing entry.
         if(index == reminders.size()){
             Reminder r = new Reminder(title, desc, time, date);
             reminders.add(r);
@@ -23,6 +25,7 @@ public class MultiController {
     }
 
     public static void deleteInfo(int index){
+        //The information is only deleted if it's a existing entry.
         if(index < reminders.size()) {
             reminders.remove(index);
         }

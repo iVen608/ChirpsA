@@ -19,6 +19,7 @@ public class AlarmHelper {
         am = (AlarmManager)c.getSystemService(Context.ALARM_SERVICE);
     }
     public void setAlarm(String date, String time) throws ParseException {
+        //Creates a alarm from the initial date to the systems time with a pending intent.
         Intent j = new Intent(c, NotificationHelper.class);
         PendingIntent pi = PendingIntent.getBroadcast(c, 0, j, 0);
         long time_1= System.currentTimeMillis();

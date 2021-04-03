@@ -15,14 +15,11 @@ public class MainController {
         this.c = c;
     }
     public ArrayList<Reminder> expandStringList(String s){
+        //Using gson to extract the information from the string saved in SharedPreferences to an ArrayList.
         Gson g = new Gson();
         Type userlistType = new TypeToken<ArrayList<Reminder>>(){}.getType();
         ArrayList<Reminder> p = g.fromJson(s, userlistType);
         mc.reminders = p;
         return p;
-    }
-
-    public void saveInfo(){
-
     }
 }
